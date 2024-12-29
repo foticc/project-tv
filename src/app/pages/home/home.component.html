@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-[#1a1c1f] flex">
+  <!-- 左侧导航栏 -->
+  <nav class="w-48 bg-[#121212] border-r border-gray-800 flex-shrink-0">
+    <div class="sticky top-0 p-4">
+      <h1 class="text-xl font-bold text-white mb-8 text-center">追影网</h1>
+      <div class="flex flex-col space-y-4">
+        <a
+          routerLink="/home"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">home</span>
+          首页
+        </a>
+        <a
+          routerLink="/home/movies"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">movie</span>
+          电影
+        </a>
+        <a
+          routerLink="/home/tv-shows"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">tv</span>
+          电视剧
+        </a>
+        <a
+          routerLink="/home/variety"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">theater_comedy</span>
+          综艺
+        </a>
+        <a
+          routerLink="/home/anime"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">animation</span>
+          动漫
+        </a>
+        <a
+          routerLink="/home/documentary"
+          routerLinkActive="bg-[#1a1a1a] text-blue-400"
+          class="text-gray-300 hover:text-blue-400 flex items-center px-4 py-2 rounded hover:bg-[#1a1a1a] transition-colors"
+        >
+          <span class="material-icons mr-2">video_library</span>
+          纪录片
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要内容区 -->
+  <div class="flex-1 overflow-auto bg-[#1a1c1f]">
+    <!-- 添加搜索框区域 -->
+    <div class="sticky top-0 bg-[#1a1c1f] p-4 border-b border-gray-800">
+      <app-search-box (search)="onSearch($event)"></app-search-box>
+    </div>
+
+    <!-- 路由内容 -->
+    <div class="p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
