@@ -54,6 +54,7 @@ export class MoviesComponent implements OnInit {
     });
   }
   onPageChange(page: number) {
+    console.log(page);
     // 先执行滚动
     window.scrollTo({
       top: 0,

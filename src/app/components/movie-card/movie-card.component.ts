@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {Movie} from '../../services/type';
-
+import { Movie } from '../../services/type';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -9,6 +9,7 @@ import {Movie} from '../../services/type';
   imports: [CommonModule],
   template: `
     <div
+      (click)="navigateToDetail()"
       class="movie-card max-w-[200px] bg-neutral-800 rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer"
     >
       <div class="relative aspect-[2/3]">
@@ -35,7 +36,7 @@ import {Movie} from '../../services/type';
           <span>{{ movie.year }}</span>
         </div>
         <div class="text-sm text-neutral-400 mb-2 truncate">
-          主演：{{ movie.actors.join('、') }}
+          主演：{{ movie.actors.split(',').join('、') }}
         </div>
         <div class="flex flex-wrap gap-1">
           <span
@@ -59,11 +60,17 @@ export class MovieCardComponent {
   @Input() movie!: Movie;
   private maxGenres = 3; // 最多显示3个类别
 
+  constructor(private router: Router) {}
+
   get displayedGenres(): string[] {
-    return this.movie.genres.slice(0, this.maxGenres);
+    return this.movie.genres.split(',').slice(0, this.maxGenres);
   }
 
   get remainingGenresCount(): number {
     return Math.max(0, this.movie.genres.length - this.maxGenres);
+  }
+
+  navigateToDetail() {
+    this.router.navigate(['/home/movies', this.movie.id + ".html"]);
   }
 }

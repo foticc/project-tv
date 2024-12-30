@@ -45,6 +45,13 @@ export const routes: Routes = [
                 (m) => m.DocumentaryComponent
               ),
           },
+          {
+            path: 'movies/:id',
+            loadComponent: () =>
+              import('./pages/details/details.component').then(
+                (m) => m.DetailsComponent
+              ),
+          },
         ],
       },
     ],
