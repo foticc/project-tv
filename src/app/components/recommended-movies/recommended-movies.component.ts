@@ -22,7 +22,7 @@ import { Movie } from '../../services/type';
 
       <div class="grid grid-cols-2 gap-4">
         <div *ngFor="let movie of recommendedMovies">
-          <app-movie-card [movie]="movie"></app-movie-card>
+          <app-movie-card [movie]="movie" size="small"></app-movie-card>
         </div>
       </div>
     </div>
@@ -45,6 +45,19 @@ export class RecommendedMoviesComponent implements OnInit {
     // this.movieService.getRandomMovies(2).subscribe((movies) => {
     //   this.recommendedMovies = movies;
     // });
+
+    this.recommendedMovies = [
+      {
+        id: 2,
+        title: '星际穿越',
+        posterUrl:
+          'https://wework.qpic.cn/wwpic/211904_vfbfHZiURImm6SE_1643293031/0',
+        year: 2014,
+        rating: 9.3,
+        genres: "'科幻', '冒险', '剧情', '剧情', '剧情', '剧情']",
+        actors: "'马修·麦康纳', '安妮·海瑟薇', '杰西卡·查斯坦']",
+      },
+    ];
   }
 
   refreshRecommendations() {

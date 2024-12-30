@@ -52,6 +52,13 @@ export const routes: Routes = [
                 (m) => m.DetailsComponent
               ),
           },
+          {
+            path: 'play/:id',
+            loadComponent: () =>
+              import('./pages/play-details/play-details.component').then(
+                (m) => m.PlayDetailsComponent
+              ),
+          },
         ],
       },
     ],

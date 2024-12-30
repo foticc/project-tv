@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Movie } from '../../services/type';
 
@@ -66,9 +66,34 @@ import { Movie } from '../../services/type';
           </div>
         </div>
       </div>
+
+      <!-- 集数列表 -->
+      <div class="mt-8 border-t border-neutral-700 pt-6">
+        <h2 class="text-2xl font-bold text-neutral-100 mb-4">剧集列表</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          <button
+            *ngFor="let episode of episodes; let i = index"
+            class="px-4 py-3 bg-neutral-700 hover:bg-neutral-600 text-neutral-200 rounded-lg
+            transition-colors duration-75 active:scale-95 active:bg-yellow-700"
+            [class.bg-yellow-600]="selectedEpisode === i + 1"
+            (click)="selectEpisode(i + 1)"
+          >
+            第 {{ i + 1 }} 集
+          </button>
+        </div>
+      </div>
     </div>
   `,
 })
 export class MovieDetailComponent {
   @Input() movie!: Movie;
+  @Output() episodeSelected = new EventEmitter<number>();
+
+  episodes = new Array(24);
+  selectedEpisode: number | null = null;
+
+  selectEpisode(episodeNumber: number) {
+    this.selectedEpisode = episodeNumber;
+    this.episodeSelected.emit(episodeNumber);
+  }
 }

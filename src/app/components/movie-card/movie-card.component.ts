@@ -8,10 +8,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div
-      (click)="navigateToDetail()"
-      class="movie-card max-w-[200px] bg-neutral-800 rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer"
-    >
+    <div (click)="navigateToDetail()" [class]="getCardClasses()">
       <div class="relative aspect-[2/3]">
         <img
           [src]="movie.posterUrl"
@@ -19,15 +16,13 @@ import { Router } from '@angular/router';
           class="w-full h-full object-cover"
           onerror="this.src='assets/images/default-movie-poster.jpg'"
         />
-        <div
-          class="absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-black text-sm font-bold rounded"
-        >
+        <div [class]="getRatingClasses()">
           {{ movie.rating }}
         </div>
       </div>
 
-      <div class="p-4">
-        <h3 class="text-lg font-semibold text-neutral-100 mb-1 truncate">
+      <div [class]="getContentClasses()">
+        <h3 [class]="getTitleClasses()">
           {{ movie.title }}
         </h3>
         <div
@@ -58,7 +53,8 @@ import { Router } from '@angular/router';
 })
 export class MovieCardComponent {
   @Input() movie!: Movie;
-  private maxGenres = 3; // 最多显示3个类别
+  @Input() size: 'small' | 'medium' = 'medium';
+  private maxGenres = 3;
 
   constructor(private router: Router) {}
 
@@ -71,6 +67,33 @@ export class MovieCardComponent {
   }
 
   navigateToDetail() {
-    this.router.navigate(['/home/movies', this.movie.id + ".html"]);
+    this.router.navigate(['/home/movies', this.movie.id + '.html']);
+  }
+
+  getCardClasses(): string {
+    const baseClasses =
+      'movie-card bg-neutral-800 rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer border border-neutral-700';
+    return this.size === 'small'
+      ? `${baseClasses} max-w-[150px] h-[280px]`
+      : `${baseClasses} max-w-[200px] h-[360px]`;
+  }
+
+  getRatingClasses(): string {
+    const baseClasses =
+      'absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-black font-bold rounded';
+    return this.size === 'small'
+      ? `${baseClasses} text-xs`
+      : `${baseClasses} text-sm`;
+  }
+
+  getContentClasses(): string {
+    return this.size === 'small' ? 'p-2' : 'p-4';
+  }
+
+  getTitleClasses(): string {
+    const baseClasses = 'font-semibold text-neutral-100 mb-1 truncate';
+    return this.size === 'small'
+      ? `${baseClasses} text-base`
+      : `${baseClasses} text-lg`;
   }
 }
