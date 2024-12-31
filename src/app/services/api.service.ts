@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {map, Observable, of} from 'rxjs';
 import { Movie } from './type';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -26,11 +26,11 @@ export class ApiService {
     return of(this.genList(0,24));
   }
 
-  pageList(page:number): Observable<Movie[]> {
+  pageList(page:number,name:string|null): Observable<Movie[]> {
     // const start = (page-1 <0?page:page-1) * 24;
     // const end = page * 24;
     // this.fetchList();
-    return this.fetchList(page);
+    return this.fetchList(page,name);
   }
 
   details(id:number): Observable<Movie> {
@@ -38,12 +38,16 @@ export class ApiService {
   }
 
 
-  private fetchList(page:number):Observable<Movie[]> {
+  private fetchList(page:number,name:string|null):Observable<Movie[]> {
+    // 1. 创建 HttpParams 对象
+    let params = new HttpParams().set('page', page.toString()).set('size', '24');
+
+    // 2. 如果 name 不为 null，则添加 name 参数
+    if (name) {
+      params = params.set('name', name);
+    }
     return this.http.get("/api/acdetail/fix",{
-      params:{
-        page,
-        size:24,
-      }
+      params
     }).pipe(map(res => res as Movie[]));
   }
 

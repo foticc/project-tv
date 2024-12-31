@@ -1,4 +1,7 @@
 export interface Movie {
+  from?:string,
+  surls?:string,
+  urls?:string,
   director?: any;
   blurb?: any | undefined;
   id: number;

@@ -1,1 +1,14 @@
-<app-movie-detail [movie]="selectedMovie"></app-movie-detail>
+<div class="details-container">
+  <app-video-player
+    class="video-section"
+    [episodes]="episodes"
+  ></app-video-player>
+
+  <div class="movie-info-section">
+    <app-movie-detail [movie]="selectedMovie"></app-movie-detail>
+  </div>
+
+  <div class="recommended-section">
+    <app-recommended-movies></app-recommended-movies>
+  </div>
+</div>

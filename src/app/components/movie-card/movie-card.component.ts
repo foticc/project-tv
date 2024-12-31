@@ -63,7 +63,8 @@ export class MovieCardComponent {
   }
 
   get remainingGenresCount(): number {
-    return Math.max(0, this.movie.genres.length - this.maxGenres);
+    const totalGenres = this.movie.genres.split(',').length;
+    return Math.max(0, totalGenres - this.maxGenres);
   }
 
   navigateToDetail() {
@@ -72,22 +73,22 @@ export class MovieCardComponent {
 
   getCardClasses(): string {
     const baseClasses =
-      'movie-card bg-neutral-800 rounded-lg overflow-hidden shadow-lg hover:scale-[1.02] transition-transform cursor-pointer border border-neutral-700';
+      'movie-card bg-neutral-800/90 rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-neutral-600/20';
     return this.size === 'small'
-      ? `${baseClasses} max-w-[150px] h-[280px]`
-      : `${baseClasses} max-w-[200px] h-[360px]`;
+      ? `${baseClasses} w-[150px]`
+      : `${baseClasses} w-[200px]`;
   }
 
   getRatingClasses(): string {
     const baseClasses =
-      'absolute top-2 right-2 px-2 py-1 bg-yellow-500 text-black font-bold rounded';
+      'absolute top-3 right-3 px-2.5 py-1 bg-yellow-500/80 text-black font-medium rounded-lg backdrop-blur-sm';
     return this.size === 'small'
       ? `${baseClasses} text-xs`
       : `${baseClasses} text-sm`;
   }
 
   getContentClasses(): string {
-    return this.size === 'small' ? 'p-2' : 'p-4';
+    return this.size === 'small' ? 'p-2 space-y-1' : 'p-4 space-y-2';
   }
 
   getTitleClasses(): string {

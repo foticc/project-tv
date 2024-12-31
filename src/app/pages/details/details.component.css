@@ -1,0 +1,20 @@
+.details-container {
+  width: 100%;
+  padding: 20px;
+}
+
+.video-section {
+  width: 100%;
+  margin-bottom: 32px;
+  aspect-ratio: 16/9;
+  max-height: 675px;
+  background: #000;
+}
+
+.movie-info-section {
+  margin-bottom: 48px;
+}
+
+.recommended-section {
+  margin-bottom: 32px;
+}

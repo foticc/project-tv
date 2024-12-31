@@ -12,8 +12,7 @@ import {VideoPlayerComponent} from '../../components/video-player/video-player.c
 })
 export class PlayDetailsComponent {
   episodes = [
-    { id: 1, number: 1, videoUrl: 'url1' },
-    { id: 2, number: 2, videoUrl: 'url2' },
+
     // ...更多集数
   ];
 }

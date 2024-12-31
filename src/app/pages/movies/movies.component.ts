@@ -11,6 +11,7 @@ import {
   query,
   stagger,
 } from '@angular/animations';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-movies',
@@ -42,16 +43,21 @@ export class MoviesComponent implements OnInit {
   movies: Movie[] = [];
   // 组件类中
   currentPage = 1;
-  totalPages = 10;
+  totalPages = 9999;
   animationState = true; // 添加新的状态变量
+  text:string |null = null;
 
   apiService: ApiService = inject(ApiService);
   cdr: ChangeDetectorRef = inject(ChangeDetectorRef);
+  route:ActivatedRoute = inject(ActivatedRoute);
+
 
   ngOnInit(): void {
-    this.apiService.pageList(this.currentPage).subscribe((res) => {
-      this.movies = res;
+    this.route.queryParams.subscribe(params => {
+      this.text = params['text'];
+      this.fetch();
     });
+    this.fetch();
   }
   onPageChange(page: number) {
     console.log(page);
@@ -64,7 +70,7 @@ export class MoviesComponent implements OnInit {
     // 等待滚动完成后再加载数据（大约300ms）
     setTimeout(() => {
       this.currentPage = page;
-      this.apiService.pageList(page).subscribe((res) => {
+      this.apiService.pageList(page,this.text).subscribe((res) => {
         this.movies = res;
         this.toggleAnimationState();
       });
@@ -74,5 +80,11 @@ export class MoviesComponent implements OnInit {
   toggleAnimationState() {
     this.animationState = !this.animationState;
     this.cdr.detectChanges();
+  }
+
+  private fetch() {
+    this.apiService.pageList(this.currentPage,this.text).subscribe((res) => {
+      this.movies = res;
+    });
   }
 }
